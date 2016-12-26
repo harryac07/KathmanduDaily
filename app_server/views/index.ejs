@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="KD">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Kathmandu Daily</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--custom css-->
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <!--font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--Adding angular js scripts -->
+      <script data-require="angular.js@*" data-semver="1.3.15" src="https://code.angularjs.org/1.3.15/angular.js"></script>
+      <script src="/lib/angular-route.min.js"></script><!--include route lib file-->
+     
+      <script src="/app.js"></script>
+
+      <script src="/common/directives/navigation/navCtrl.js"></script>
+      <script src="/common/directives/navigation/nav.directive.js"></script>
+
+      <script src="/posts/homeCtrl.js"></script><!--include home ctrl js file-->
+      <!-- <script src="/productDetail/detailsCtrl.js"></script> -->
+
+      <script src="/common/services/dataService.js"></script>
+
+</head>
+
+<body>
+    <!--for facebook plugin -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=229434510832358";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="navheader_name"href="#">Kathmandu Daily</a>
+            </div>
+            <ul class="nav navbar-nav" id="green-circle">
+              <li class="active"><div id="nav-circle" style="background-color:green;border-radius:50%;height:50px;width:50px;text-align:center"><p style="padding-top:17px">KD</p></div></li>
+            </ul>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="nav-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="">About</a>
+                    </li>
+                    <li>
+                        <a href="">Services</a>
+                    </li>
+                    <li>
+                        <a href="">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content  container-->
+
+    <div ng-view>
+    </div>
+
+    <!-- /.container -->
+
+
+
+</body>
+
+</html>
