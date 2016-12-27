@@ -7,6 +7,9 @@ function mainService($http) {
 	var postList = function() {
 		return $http.get('/api/posts');
 	};
+	var postSearch = function(searchQuery) {
+		return $http.get('/api/posts?search='+searchQuery);
+	};
 
 	var postById = function(postid) {
 		return $http.get('/api/post/' + postid);
@@ -14,6 +17,7 @@ function mainService($http) {
 
 	return {
 		postList: postList,
-		postById: postById
+		postById: postById,
+		postSearch:postSearch
 	};
 }

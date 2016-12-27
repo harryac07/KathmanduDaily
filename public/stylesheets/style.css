@@ -5,6 +5,7 @@ body {
 }
 .navbar-inverse{
 	background: rgba(0,0,0,0.9);
+	color: white;
 }
 
 footer {
@@ -23,12 +24,18 @@ a {
 img{ 
 	width:100%;
 }
+/* for mobile devices */
 @media only screen and (max-width: 600px) {
+
 	#green-circle{
 		display: none;
 	}
 	.navbar-inverse{
 		background: rgba(0,0,0,0.7);
+	}
+	.navbar-default{
+		display: none;
+		visibility: hidden;
 	}
 
 }
@@ -42,3 +49,16 @@ footer{
 textarea{
 	resize:none;
 }
+.container-fluid a:hover{
+	text-decoration: none;
+	color: red;
+}
+#pager button {
+	border:1px solid #ccc;
+	color:#000;
+}
+
+
+
+
+

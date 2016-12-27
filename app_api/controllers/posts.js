@@ -15,7 +15,7 @@ module.exports.postCreate = function(req, res) {
 		title: req.body.title,
 		image: req.body.image,
 		content: req.body.content,
-		author:req.params.userid
+		author: req.params.userid
 	}, function(err, post) {
 		if (err) {
 			sendJSONresponse(res, 400, err);
@@ -28,6 +28,7 @@ module.exports.postCreate = function(req, res) {
 
 /*GET all post */
 module.exports.listPosts = function(req, res) {
+
 	Post.find()
 		.populate('author', 'name email')
 		.exec(function(err, post) {
@@ -40,10 +41,28 @@ module.exports.listPosts = function(req, res) {
 				sendJSONresponse(res, 400, err);
 				return;
 			} else {
-				sendJSONresponse(res, 200, post);
-				console.log(post);
+				var query = req.query.search;
+				if (query && query.length > 0) {
+
+					var results = [];
+					var toSearch = query.toLowerCase();
+
+					for (var i = 0; i < post.length; i++) {
+						if(post[i].title.toLowerCase().includes(toSearch) || post[i].content.toLowerCase().includes(toSearch) ){
+							results.push(post[i]);
+						}
+					}
+					sendJSONresponse(res, 200, results);
+					console.log(results);
+
+				} else {
+					sendJSONresponse(res, 200, post);
+					console.log(post);
+				}
+
 			}
 		});
+
 };
 
 /* get specific post with id */
@@ -87,17 +106,17 @@ module.exports.postUpdateOne = function(req, res) {
 	Post
 		.findById(postId)
 		.exec(function(err, post) {
-			if(!post){
-				sendJSONresponse(res,404,{
-					"message":"post not found with that id."
+			if (!post) {
+				sendJSONresponse(res, 404, {
+					"message": "post not found with that id."
 				});
-			}else if(err){
-				sendJSONresponse(res,400,err);
+			} else if (err) {
+				sendJSONresponse(res, 400, err);
 			}
 			post.title = req.body.title,
-				post.image= req.body.image,
-				post.content= req.body.content,
-				post.comment= [{
+				post.image = req.body.image,
+				post.content = req.body.content,
+				post.comment = [{
 					name: req.body.name,
 					comment: req.body.comment
 				}]

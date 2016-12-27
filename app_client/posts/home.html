@@ -11,9 +11,9 @@
                 <div class="well">
                     <h4>Search here</h4>
                     <div class="input-group">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="search" style="border:1px solid gray">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
+                            <button class="btn btn-primary" type="button">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>
@@ -47,32 +47,59 @@
             <!-- Blog Entries Column -->
             <div class="col-md-6 col-sm-6 col-xs-12" >
             	<!-- First Blog Post -->
-            	<div ng-repeat="post in posts">
-	                <h2>
-	                    <a href="/#/post/{{post._id}}">{{post.title}}</a>
-	                </h2>
-	                <p class="lead">
-	                    by <a href="index.php">{{post.author[0].name}}</a>
-	                </p>
-	                <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.createdOn}}</p>
-	                <hr>
-	                <img class="img-responsive" src="/images/{{post.image}}" alt="">
-	                <hr>
-	                <p>{{post.content}}</p>
-	                <a class="btn btn-primary" href="">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <div id="posts">
+                	<div ng-repeat="post in filteredPosts|limitTo:numPerPage">
+    	                <h2>
+    	                    <a href="/#/post/{{post._id}}">{{post.title}}</a>
+    	                </h2>
+    	                <p class="lead">
+    	                    by <a href="index.php">{{post.author[0].name}}</a>
+    	                </p>
+    	                <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.createdOn}}</p>
+    	                <hr>
+    	                <img class="img-responsive" src="{{post.image}}" alt="">
+    	                <hr>
+    	                <p ng-init="postContent=trimContent(post.content)">{{postContent}}</p>
+    	                <a class="btn btn-primary" href="">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
-	                <hr>
-            	</div>
+    	                <hr>
+                	</div>
+                </div>
+                <div>
+                    <h3 id="dataNotFound">{{DataNotFound}}</h3>
+                </div>
 
                 <!-- Pager -->
-                <ul class="pager">
+<!--            <ul class="pager">
                     <li class="previous">
                         <a href="#">&larr; Older</a>
                     </li>
                     <li class="next">
                         <a href="#">Newer &rarr;</a>
                     </li>
-                </ul>
+                </ul> -->
+<!--                 <div style="display:inline-block;position: absolute; right:0;bottom:2px; padding-right:20px;color:black" id="pager-bottom"> -->
+                <div class="row" id="pager">
+                    <div class="col-sm-4 col-xs-4">
+                        <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
+                            First
+                        </button>
+                        <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                            Previous
+                        </button>
+                    </div>
+                    <div class="col-sm-4 col-xs-4">
+                        <button class="btn btn-default"><strong>{{currentPage+1}}</strong> out of <strong>{{numberOfPages()}}</strong></button>
+                    </div>
+                    <div class="col-sm-4 col-xs-4">
+                        <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
+                            Next
+                        </button>
+                        <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
+                            Last
+                        </button>
+                    </div>
+                </div>
 
             </div>
 
@@ -135,8 +162,7 @@
         <!-- /.row -->
 
         <hr>
-</div>
-
+        
         <!-- Footer -->
         <footer class="text-center" style="">
             <div class="row" >
@@ -162,7 +188,7 @@
                     <p>Hello</p>
                 </div> 
                 
-                <!-- <a class="btn btn-default" style="float:right" href="/post">Post create</a>   -->       
+                 <a class="btn btn-default" style="float:right" href="/post">Post create</a>        
             </div>
 
             <hr style="width:70%">
@@ -199,5 +225,6 @@
             </div>
   
         </footer>
+</div>
 
     
