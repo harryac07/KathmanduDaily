@@ -46,10 +46,9 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 				/* call api to search the page */
 				mainService.postSearch(query)
 					.success(function(data) {
+
 						/* if data is avilable */
 						if (data.length > 0) {
-							$scope.posts = data;
-
 							/////////////////////
 							$scope.makeItems = function() {
 								$scope.items = [];
@@ -58,7 +57,6 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 								}
 							};
 							$scope.makeItems();
-
 							/* Return total number of pages */
 							$scope.numberOfPages = function() {
 								return Math.ceil($scope.items.length / $scope.numPerPage);
@@ -71,14 +69,19 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 							});
 
 							/* simple jQuery handler for page */
+							$scope.DataNotFound = "";
+							$("#pager").show();
 							$('#posts').show();
 							$('#DataNotFound').hide();
 
 						} else { /* if data is not  avilable */
 
+							/* simple jQuery handler for page */
 							$scope.DataNotFound = "Post not found.";
 							$('#posts').hide();
 							$('#DataNotFound').show();
+							$('#pager').hide();
+
 						}
 
 						////////////////
@@ -89,7 +92,8 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 					});
 				/* api call ends here */
 				$(this).val('');
-			}
+			} /*.ends search button condition here */
+
 		});
 
 		/* Managing the word in posts in front page view */
@@ -103,6 +107,11 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 			}
 			return string;
 		};
+
+		/* load page from top on next page click */
+		$('#pager button').on('click', function() {
+			$(window).scrollTop(0);
+		});
 
 
 

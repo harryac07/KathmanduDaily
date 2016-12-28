@@ -18,6 +18,9 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="javascripts/page.js"></script>
+    <!--Moment js for time -->
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--Adding angular js scripts -->
@@ -30,15 +33,33 @@
       <script src="/common/directives/navigation/nav.directive.js"></script>
 
       <script src="/posts/homeCtrl.js"></script><!--include home ctrl js file-->
+      <script src="/singlePost/singlePostCtrl.js"></script><!--include singlePostctrl js file-->
       <!-- <script src="/productDetail/detailsCtrl.js"></script> -->
 
       <script src="/common/services/dataService.js"></script>
 
       <script>
-        $(document).ready(function(){
-            // $(window).scrollTop(0);
-          
-        });
+        angular
+        .module('KD')
+        .controller('mainCtrl', mainCtrl);
+
+
+
+        function mainCtrl($scope, $location,$interval,$timeout) { // service as parameter
+
+                /* live current time */
+
+                $interval(function(){
+                    $scope.currentTime = moment().format('YYYY MM DD , hh:mm:ss a');
+                }, 1000);
+
+                /* load subscription form */
+                $timeout(function(){
+                    $('#myModal').modal('show'); 
+                }, 30000);               
+                
+
+        } /* function ends */
       </script>
 
 </head>
@@ -90,7 +111,7 @@
         <!-- /.container -->
     </nav>
     <!-- second nav starts here -->
-    <nav class="nav navbar-default" style=";position:fixed;top:40px;width:100%" role="navigation">
+    <nav class="nav navbar-default" style=";position:fixed;top:40px;width:100%;" role="navigation" id="nav-second" ng-controller="mainCtrl">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -102,17 +123,62 @@
                 </button>
                 <a class="navbar-brand" id="navheader_name"href="#"></a>
             </div>
+            <ul class="nav navbar-nav navbar-right" >
+                <li>
+                    <a href="" style="color:black"><strong>{{currentTime }}</strong></a>
+                </li>
+                <li>
+                    <a href="">News</a>
+                </li>
+                <li>
+                    <a href="">Songs</a>
+                </li>
+                <li>
+                    <a href="">News</a>
+                </li>
+                <li>
+                    <a href="">Movies</a>
+                </li>
+            </ul>
+        </div>
 
         <!-- /.container -->
     </nav>
 
-    <!-- Page Content  container-->
+    <!-- Page Content  container starts here -->
 
-    <div ng-view>
+    <div ng-view> <!--angular view area-->
     </div>
 
-    <!-- /.container -->
+    <!-- /.container ends here-->
 
+    <!--Subscription form-->
+    <div class="modal fade" id="myModal" role="dialog" style="border:1px solid gray">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><i style="font-size:30px;color:red"class="fa fa-envelope-o" aria-hidden="true"></i></h4>
+                </div>
+                <div class="modal-body">
+                  <h3 style="color:blue">Subscribe to our Newsletters</h3>
+                  <p>Kathmandu Daily is a source of your entertainments.Subscribe to our mailing list and get updated about updates ,news and fantastic posts.</p>
+                    <form class="form-horizontal" style="padding:0 20px 0 20px">
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" placeholder="Type your email....">
+                      </div>
+                    </form>
+                    <br>
+                    <button type="submit" class="btn btn-success">Subscribe</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+  
 
 
 </body>

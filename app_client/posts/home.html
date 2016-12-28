@@ -46,6 +46,9 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-6 col-sm-6 col-xs-12" >
+                <div>
+                    <h3 id="dataNotFound">{{DataNotFound}}</h3>
+                </div>
             	<!-- First Blog Post -->
                 <div id="posts">
                 	<div ng-repeat="post in filteredPosts|limitTo:numPerPage">
@@ -60,25 +63,11 @@
     	                <img class="img-responsive" src="{{post.image}}" alt="">
     	                <hr>
     	                <p ng-init="postContent=trimContent(post.content)">{{postContent}}</p>
-    	                <a class="btn btn-primary" href="">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+    	                <a class="btn btn-primary" href="/#/post/{{post._id}}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
     	                <hr>
                 	</div>
                 </div>
-                <div>
-                    <h3 id="dataNotFound">{{DataNotFound}}</h3>
-                </div>
-
-                <!-- Pager -->
-<!--            <ul class="pager">
-                    <li class="previous">
-                        <a href="#">&larr; Older</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">Newer &rarr;</a>
-                    </li>
-                </ul> -->
-<!--                 <div style="display:inline-block;position: absolute; right:0;bottom:2px; padding-right:20px;color:black" id="pager-bottom"> -->
                 <div class="row" id="pager">
                     <div class="col-sm-4 col-xs-4">
                         <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
@@ -162,25 +151,27 @@
         <!-- /.row -->
 
         <hr>
-        
+</div>
+
+<div class="" style="width:100%;padding-top:20px">
         <!-- Footer -->
         <footer class="text-center" style="">
-            <div class="row" >
-                <div class="col-sm-4" >
+            <div class="row">
+                <div class="col-sm-4" style=";padding-top:30px">
                     <h3>Kathmandu Daily</h3>
                     
                     <p>Contact Us</p>
                     <p>About Us</p>
 
                 </div>
-                <div class="col-sm-4" class="text-center">
+                <div class="col-sm-4" class="text-center" style=";padding-top:30px">
                     <h3>Social Network</h3>
                     
                     <a href="" class="btn btn-primary"><i class="fa fa-facebook" style="font-size:30px;"></i></a>
                     <a href="" class="btn btn-primary"><i class="fa fa-linkedin" style="font-size:30px;"></i></a>
                     <a href="" class="btn btn-primary"><i class="fa fa-twitter" style="font-size:30px"></i></a>
                 </div>
-                <div class="col-sm-4" class="text-center">
+                <div class="col-sm-4" class="text-center" style=";padding-top:30px">
                     <h3>Kathmandu Daily</h3>
                     
                     <p>Hello</p>
