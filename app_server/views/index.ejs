@@ -57,7 +57,7 @@
                 
                 mainService.postList()
                 .success(function(data){
-                    var array=[]; // array consisiting of popular comments data.
+                    $scope.array=[]; // array consisiting of popular posts data.
 
                     for(var i=0;i<data.length;i++){
                         $scope.comments.push(data[i].comment.length);
@@ -68,20 +68,26 @@
                         return b-a;
                     });
                     $scope.comments= $scope.comments.slice(0,4);
+                    // console.log('comments:'+$scope.comments);
 
                     for(var i=0;i<data.length;i++){
                         for(var j=0;j<$scope.comments.length;j++){
                             if(data[i].comment.length===$scope.comments[j]){ // check if the two array matches
-                                if(array.length<4){
-                                    array.push(data[i]);
-                                }
-                                
+                                $scope.array.push(data[i]);
                             }
                         }
                     }
-                    // console.log(array);
-                    // set the popular posts data to scope variable 
-                    $scope.popularComments=array;
+                    /* remove the duplicates */
+                    $scope.array = $scope.array.filter( function( item, index, inputArray ) {
+                        return inputArray.indexOf(item) == index;
+                    });
+                    // sort by maximum number of comments 
+                    $scope.array.sort(function (a, b) {
+                      return b.comment.length - a.comment.length;
+                    });
+                    /* make the length of array to be 4 */
+                    $scope.array=$scope.array.slice(0,4);
+                    console.log($scope.array);
                                    
 
                 })
@@ -137,7 +143,7 @@
                 <!-- Side Widget Well -->
                 <div class="well" ng-controller="mainCtrl">
                     <h4><strong>Popular Posts</strong></h4>
-                    <div class="well" style="margin:5px;padding:5px;" ng-repeat="post in popularComments">
+                    <div class="well" style="margin:5px;padding:5px;" ng-repeat="post in array">
                         <a href="/#/post/{{post._id}}">
                             <img  class="thumbnail" src="{{post.image}}" style="height:60px;width:60px;float:right;right:0">
                             <h5 style="color:black">{{post.title}}</h5>
