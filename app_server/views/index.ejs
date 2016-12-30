@@ -26,11 +26,11 @@
     <!--Adding angular js scripts -->
       <script data-require="angular.js@*" data-semver="1.3.15" src="https://code.angularjs.org/1.3.15/angular.js"></script>
       <script src="/lib/angular-route.min.js"></script><!--include route lib file-->
-     
+     <script src="http://code.angularjs.org/1.0.4/angular-sanitize.min.js"></script>
       <script src="/app.js"></script>
 
-      <script src="/common/directives/navigation/navCtrl.js"></script>
-      <script src="/common/directives/navigation/nav.directive.js"></script>
+      <script src="/common/navigation/navigationCtrl.js"></script>
+      <script src="/common/navigation/nav.directive.js"></script>
 
       <script src="/posts/homeCtrl.js"></script><!--include home ctrl js file-->
       <script src="/singlePost/singlePostCtrl.js"></script><!--include singlePostctrl js file-->
@@ -45,18 +45,61 @@
 
 
 
-        function mainCtrl($scope, $location,$interval,$timeout) { // service as parameter
-
-                /* live current time */
-
-                $interval(function(){
-                    $scope.currentTime = moment().format('YYYY MM DD , hh:mm:ss a');
-                }, 1000);
+        function mainCtrl($scope, $location,$interval,$timeout,mainService) { // service as parameter
 
                 /* load subscription form */
                 $timeout(function(){
                     $('#myModal').modal('show'); 
-                }, 30000);               
+                }, 60000);   //60 sec    
+
+                /* handle popular comment on basis of comment counts */ 
+                $scope.comments=[]; // length of comments in desc order.
+                
+                mainService.postList()
+                .success(function(data){
+                    var array=[]; // array consisiting of popular comments data.
+
+                    for(var i=0;i<data.length;i++){
+                        $scope.comments.push(data[i].comment.length);
+                    }
+
+
+                    $scope.comments.sort(function(a, b){ // sort array by maximum val
+                        return b-a;
+                    });
+                    $scope.comments= $scope.comments.slice(0,4);
+
+                    for(var i=0;i<data.length;i++){
+                        for(var j=0;j<$scope.comments.length;j++){
+                            if(data[i].comment.length===$scope.comments[j]){ // check if the two array matches
+                                if(array.length<4){
+                                    array.push(data[i]);
+                                }
+                                
+                            }
+                        }
+                    }
+                    // console.log(array);
+                    // set the popular posts data to scope variable 
+                    $scope.popularComments=array;
+                                   
+
+                })
+                .error(function(err){
+                    console.log(err);
+                });
+
+                /* Managing the word in post in popular post view */
+
+                $scope.trimContent = function(string) {
+
+                    for (var i = 0; i < string.length; i++) {
+                        if (string.length > 100) {
+                            string = string.substr(0, 50) + ' .........'; // Trim String and make upto 250 characters
+                        }
+                    }
+                    return string;
+                };
                 
 
         } /* function ends */
@@ -64,7 +107,7 @@
 
 </head>
 
-<body>
+<body class="container">
     <!--for facebook plugin -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
@@ -75,82 +118,153 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <p style="display:hidden"></p>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" id="navheader_name"href="/#/">Kathmandu Daily</a>
-            </div>
-            <ul class="nav navbar-nav" id="green-circle">
-              <li class="active"><div id="nav-circle" style="background-color:green;border-radius:50%;height:50px;width:50px;text-align:center"><p style="padding-top:17px">KD</p></div></li>
-            </ul>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="nav-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="">About</a>
-                    </li>
-                    <li>
-                        <a href="">Services</a>
-                    </li>
-                    <li>
-                        <a href="">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    <!-- second nav starts here -->
-    <nav class="nav navbar-default" style=";position:fixed;top:40px;width:100%;" role="navigation" id="nav-second" ng-controller="mainCtrl">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" id="navheader_name"href="#"></a>
-            </div>
-            <ul class="nav navbar-nav navbar-right" >
-                <li>
-                    <a href="" style="color:black"><strong>{{currentTime }}</strong></a>
-                </li>
-                <li>
-                    <a href="">News</a>
-                </li>
-                <li>
-                    <a href="">Songs</a>
-                </li>
-                <li>
-                    <a href="">News</a>
-                </li>
-                <li>
-                    <a href="">Movies</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- /.container -->
-    </nav>
+    <navigation></navigation>
 
     <!-- Page Content  container starts here -->
+    <div>
+                <h1 class="page-header text-center">
+                    <strong>Kathmandu Daily</strong>
+                    <small>all about KTM</small>
+                </h1>
 
-    <div ng-view> <!--angular view area-->
+        <div class="row">
+
+            <div ng-view> <!--angular view area-->
+            </div>
+                <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-3 col-sm-3 col-xs-12">
+
+                <!-- Side Widget Well -->
+                <div class="well" ng-controller="mainCtrl">
+                    <h4><strong>Popular Posts</strong></h4>
+                    <div class="well" style="margin:5px;padding:5px;" ng-repeat="post in popularComments">
+                        <a href="/#/post/{{post._id}}">
+                            <img  class="thumbnail" src="{{post.image}}" style="height:60px;width:60px;float:right;right:0">
+                            <h5 style="color:black">{{post.title}}</h5>
+                            <small><p ng-init="postContent=trimContent(post.content)">{{postContent}}</p></small>
+                        </a>
+                    </div>                  
+                </div>
+                <!--Share and Subscribe-->
+                <div class="well" style="height:auto">
+                    
+                    <a href=""class="btn btn-primary"><i class="fa fa-facebook" style="padding-right:7px;font-size:20px"></i>Share in Facebook</a> 
+                    <div style="padding-top:10px" class="fb-like" data-href="https://www.facebook.com/officialroutineofnepalbanda/" data-width="30px" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                    <hr>
+                    <div class="fb-follow" data-href="https://www.facebook.com/hurriee" data-width="20px" data-layout="standard" data-size="large" data-show-faces="true">
+                    </div>
+
+                </div>
+
+                <!--Moving your apartment -->
+                <div class="well" style="height:auto">
+                    
+                    <h4><strong>Searching for Apartment?</strong></h4>
+                    <a href="https://movektm.herokuapp.com" target="blank" class="btn btn-primary">
+                        <i class="fa fa-home" style="padding-right:8px;font-size:20px">
+                            
+                        </i>
+                        Find Apartments
+                    </a>
+                    <hr style="border-top:1px solid gray">
+                    <!--Find Gadgets -->
+                    
+                    <h4><strong>Phones & Computers</strong></h4>
+                    <a href="https://profinder1.herokuapp.com" target="blank"class="btn btn-primary">
+                        <i class="fa fa-laptop" style="padding-right:8px;font-size:20px">
+                            
+                        </i>
+                        Gadgets Nearby
+                    </a>
+
+                </div>
+
+            </div>
+
     </div>
+</div>
+<!-- /.container ends here-->
+        <!-- /.row -->
 
-    <!-- /.container ends here-->
+        <hr>
+
+<div class="" style="width:100%;padding-top:20px">
+    
+        <!-- Footer -->
+        <footer class="text-center" style="">
+            <div class="row">
+                <div class="col-sm-4" style=";padding-top:30px">
+                    <h3>Kathmandu Daily</h3>
+                    
+                    <p>Contact Us</p>
+                    <p>About Us</p>
+
+                </div>
+                <div class="col-sm-4" class="" style=";padding-top:30px">
+                    <h3>Social Network</h3>
+                    
+                    <a href="" class="btn btn-primary"><i class="fa fa-facebook" style="font-size:30px;"></i></a>
+                    <a href="" class="btn btn-primary"><i class="fa fa-linkedin" style="font-size:30px;"></i></a>
+                    <a href="" class="btn btn-primary"><i class="fa fa-twitter" style="font-size:30px"></i></a>
+                </div>
+                <div class="col-sm-4"  style=";padding-top:30px;text-align:center;">
+                    <h3>Explore More</h3>
+                    
+                    <div class="row" >
+                        <div class="col-sm-12 col-xs-12">
+                            <ul class="list-unstyled" >
+                                <li><a style="color:white" href="">Social</a>
+                                </li>
+                                <li><a style="color:white" href="">Economy</a>
+                                </li>
+                                <li><a style="color:white" href="">Places around</a>
+                                </li>
+                                <li><a style="color:white" href="">Activities</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> 
+                
+                 <!-- <a class="btn btn-default" style="float:right" href="/post">Post create</a>         -->
+            </div>
+
+            <hr style="width:70%">
+            <!-- subscribe form -->
+            <div class="row">
+                <div class="col-sm-4">
+                    <!-- something may goes here -->
+                </div>
+                <div class="text-center col-sm-4 col-xs-12">
+                        <div id="form" class="text-center" style="color:red;text-align:left">
+                            <form role="form"  method="post" enctype="text/plain">
+                                <h2 style="text-align:center;color:#cdefff">Comment or Feedback</h2>
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+                                </div>                   
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control"name="comment" rows="5" placeholder="write Feedback here...."></textarea>
+                                </div>
+                                <button style="background:#66ccff" type="submit"id="submit" class="btn btn-default">Submit</button>
+                            </form>
+                            <br>
+                        </div>
+                </div>
+                <div class="col-sm-4">
+                    <!-- something may goes here -->
+                </div>
+
+            </div>
+            <div style="background:black;padding:5px 0 5px 0">
+                <h4>Copyright &copy; Kathmandu Daily , <small><a href="http://users.metropolia.fi/~haria/" target="blank">Designed by Haria</a></small></h4>
+            </div>
+  
+        </footer>
+</div>
+
 
     <!--Subscription form-->
     <div class="modal fade" id="myModal" role="dialog" style="border:1px solid gray">

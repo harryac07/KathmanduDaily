@@ -7,9 +7,18 @@ body {
 	background: rgba(0,0,0,0.9);
 	color: white;
 }
+.navbar-default{
+	height: 40px !important;
+	padding-bottom: 20px;
+}
 
 footer {
     margin: 50px 0;
+}
+.container{
+	width: 100%;
+	box-sizing: border-box;
+
 }
 
 a {
@@ -23,6 +32,7 @@ a {
 }
 img{ 
 	width:100%;
+	max-height: 400px;
 }
 /* for mobile devices */
 @media only screen and (max-width: 600px) {
@@ -40,18 +50,23 @@ img{
 
 }
 footer{
-	width:100%;
+	width:100% !important;
 	background-color:rgba(0,0,0,0.8);
 	padding:0px;
 	color:white;
 	margin-bottom:0;
+	margin-left: 0;
+	margin-right: 0;
 }
 textarea{
 	resize:none;
 }
-.container-fluid a:hover{
+#posts h2 a:hover{
 	text-decoration: none;
 	color: red;
+}
+a:hover{
+	text-decoration: none;
 }
 #pager button {
 	border:1px solid #ccc;
@@ -65,12 +80,25 @@ background: -webkit-linear-gradient(to left, #808080 , #3fada8); /* Chrome 10-25
 background: linear-gradient(to left, #808080 , #3fada8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         
 }
-input[type="email"]:focus{
+input:focus,textarea:focus{
 background: #ccc; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         
 }
+.comment{
+	max-height: 150px;
+	width: 60%;
+	padding: 0;
+}
 
-
+.white-space-pre {
+    white-space: pre-wrap;
+}
+#nav-second{
+	padding-right: 20px;
+}
+#nav-second ul li a{
+	color: black;
+}
 
 
 

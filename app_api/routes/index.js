@@ -6,6 +6,7 @@ var multipartMiddleware = multipart();
 
 var ctrlposts = require('../controllers/posts');
 var ctrlUsers = require('../controllers/users');
+var ctrlComment=require('../controllers/comments');
 
 
 router.post('/createpost/:userid',ctrlposts.postCreate);
@@ -19,6 +20,11 @@ router.get('/users',ctrlUsers.listUsers);
 router.get('/user/:userid',ctrlUsers.readUserOne);
 router.put('/user/:userid',ctrlUsers.updateUserOne);
 router.delete('/user/:userid',ctrlUsers.deleteUserOne);
+
+/* comment routes */
+router.post('/post/:postid/comment',ctrlComment.postComment);
+router.get('/post/:postid/comment/:commentid',ctrlComment.getComment);
+
 
 
 

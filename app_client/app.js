@@ -1,4 +1,4 @@
-angular.module('KD', ['ngRoute']); // routes for controller
+angular.module('KD', ['ngRoute', 'ngSanitize']); // routes for controller
 
 function config($routeProvider) {
 	$routeProvider

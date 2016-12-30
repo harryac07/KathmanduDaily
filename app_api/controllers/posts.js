@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var User = mongoose.model('User');
-
+var moment = require('moment');
 var sendJSONresponse = function(res, status, content) {
 	res.status(status);
 	res.json(content);

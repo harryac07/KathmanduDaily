@@ -1,8 +1,13 @@
 var mongoose = require('mongoose');
+var moment = require('moment');
 
 /* Schema for reviews */
 var commentSchema = new mongoose.Schema({
 	name: {
+		type: String,
+		required: true
+	},
+	email: {
 		type: String,
 		required: true
 	},
@@ -11,8 +16,7 @@ var commentSchema = new mongoose.Schema({
 		required: true
 	},
 	createdOn: {
-		type: Date,
-		"default": Date.now
+		type: Date
 	}
 });
 
@@ -30,7 +34,7 @@ var postSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	comment:[commentSchema],
+	comment: [commentSchema],
 	createdOn: {
 		type: Date,
 		default: Date.now

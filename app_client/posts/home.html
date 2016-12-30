@@ -1,10 +1,6 @@
-    <div class="container-fluid">
-                <h1 class="page-header text-center">
-                    <strong>Kathmandu Daily</strong>
-                    <small>all about KTM</small>
-                </h1>
 
-        <div class="row">
+
+        
 
             <div class="col-md-3 col-xs-12 col-sm-3">
                                 <!-- Blog Search Well -->
@@ -26,15 +22,21 @@
                     <h4>Categories</h4>
                     <hr>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Social</a>
+                        <div class="col-sm-12 col-xs-12">
+                            <ul class="" id="category">
+                                <li><a href="">Social</a>
                                 </li>
-                                <li><a href="#">Economy</a>
+                                <li><a href="">Economy</a>
                                 </li>
-                                <li><a href="#">Places around</a>
+                                <li><a href="">Places around</a>
                                 </li>
-                                <li><a href="#">Activities</a>
+                                <li><a href="">Activities</a>
+                                </li>
+                                <li><a href="">Hicking</a>
+                                </li>
+                                <li><a href="">Tour outside KTM</a>
+                                </li>
+                                <li><a href="">Feelings</a>
                                 </li>
                             </ul>
                         </div>
@@ -51,14 +53,14 @@
                 </div>
             	<!-- First Blog Post -->
                 <div id="posts">
-                	<div ng-repeat="post in filteredPosts|limitTo:numPerPage">
+                	<div ng-init="date=formatDate(post.createdOn)" ng-repeat="post in filteredPosts|limitTo:numPerPage">
     	                <h2>
     	                    <a href="/#/post/{{post._id}}">{{post.title}}</a>
     	                </h2>
     	                <p class="lead">
-    	                    by <a href="index.php">{{post.author[0].name}}</a>
+    	                    by <a href="">{{post.author[0].name}}</a>
     	                </p>
-    	                <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.createdOn}}</p>
+    	                <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
     	                <hr>
     	                <img class="img-responsive" src="{{post.image}}" alt="">
     	                <hr>
@@ -92,130 +94,6 @@
 
             </div>
 
-            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-3 col-sm-3 col-xs-12">
 
-                <!-- Side Widget Well -->
-                <div class="well">
-                    <h4><strong>Popular post</strong></h4>
-                    <div class="well" style="margin:5px;padding:5px;">
-                        <img  class="thumbnail" src="/images/kathmandu.jpg" style="height:50px;width:50px;float:right">
-                        <p>Lorem ipsum  perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-                    </div>
-                    <div class="well" style="margin:5px;padding:5px;">
-                        <img  class="thumbnail" src="/images/kathmandu.jpg" style="height:50px;width:50px;float:right">
-                        <p>Lorem ipsum  perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-                    </div>
-                    <div class="well" style="margin:5px;padding:5px;">
-                        <img  class="thumbnail" src="/images/kathmandu.jpg" style="height:50px;width:50px;float:right">
-                        <p>Lorem ipsum  perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-                    </div>                   
-                </div>
-                <!--Share and Subscribe-->
-                <div class="well" style="height:auto">
-                    
-                    <a href=""class="btn btn-primary"><i class="fa fa-facebook" style="padding-right:7px;font-size:20px"></i>Share in Facebook</a> 
-                    <div style="padding-top:10px" class="fb-like" data-href="https://www.facebook.com/officialroutineofnepalbanda/" data-width="30px" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-                    <hr>
-                    <div class="fb-follow" data-href="https://www.facebook.com/hurriee" data-width="20px" data-layout="standard" data-size="large" data-show-faces="true">
-                    </div>
-
-                </div>
-
-                <!--Moving your apartment -->
-                <div class="well" style="height:auto">
-                    
-                    <h4><strong>Searching for Apartment ?</strong></h4>
-                    <a href="https://movektm.herokuapp.com" class="btn btn-primary">
-                        <i class="fa fa-home" style="padding-right:8px;font-size:20px">
-                            
-                        </i>
-                        Find Apartments
-                    </a>
-                    <hr style="border-top:1px solid gray">
-                    <!--Find Gadgets -->
-                    
-                    <h4><strong>Phones & Computers</strong></h4>
-                    <a href="https://profinder1.herokuapp.com" class="btn btn-primary">
-                        <i class="fa fa-laptop" style="padding-right:8px;font-size:20px">
-                            
-                        </i>
-                        Gadgets Nearby
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /.row -->
-
-        <hr>
-</div>
-
-<div class="" style="width:100%;padding-top:20px">
-        <!-- Footer -->
-        <footer class="text-center" style="">
-            <div class="row">
-                <div class="col-sm-4" style=";padding-top:30px">
-                    <h3>Kathmandu Daily</h3>
-                    
-                    <p>Contact Us</p>
-                    <p>About Us</p>
-
-                </div>
-                <div class="col-sm-4" class="text-center" style=";padding-top:30px">
-                    <h3>Social Network</h3>
-                    
-                    <a href="" class="btn btn-primary"><i class="fa fa-facebook" style="font-size:30px;"></i></a>
-                    <a href="" class="btn btn-primary"><i class="fa fa-linkedin" style="font-size:30px;"></i></a>
-                    <a href="" class="btn btn-primary"><i class="fa fa-twitter" style="font-size:30px"></i></a>
-                </div>
-                <div class="col-sm-4" class="text-center" style=";padding-top:30px">
-                    <h3>Kathmandu Daily</h3>
-                    
-                    <p>Hello</p>
-                    <p>Hello</p>
-                    <p>Hello</p>
-                </div> 
-                
-                 <a class="btn btn-default" style="float:right" href="/post">Post create</a>        
-            </div>
-
-            <hr style="width:70%">
-            <!-- subscribe form -->
-            <div class="row">
-                <div class="col-sm-4">
-                    <!-- something may goes here -->
-                </div>
-                <div class="text-center col-sm-4 col-xs-12">
-                        <div id="form" class="text-center" style="color:red;text-align:left">
-                            <form role="form"  method="post" enctype="text/plain">
-                                <h2 style="text-align:center;color:#cdefff">Comment or Feedback</h2>
-                                <div class="form-group">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Name">
-                                </div>                   
-                                <div class="form-group">
-                                    <input type="email" name="email" class="form-control" id="email" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control"name="comment" rows="5" id="comment" placeholder="write Feedback here...."></textarea>
-                                </div>
-                                <button style="background:#66ccff" type="submit"id="submit" class="btn btn-default">Submit</button>
-                            </form>
-                            <br>
-                        </div>
-                </div>
-                <div class="col-sm-4">
-                    <!-- something may goes here -->
-                </div>
-
-            </div>
-            <div style="background:black;padding:5px 0 5px 0">
-                <h4>Copyright &copy; Kathmandu Daily , Designed by Haria</h4>
-            </div>
-  
-        </footer>
-</div>
 
     

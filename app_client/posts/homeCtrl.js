@@ -7,7 +7,7 @@ angular
 function homeCtrl($scope, $location, mainService) { // service as parameter
 	$scope.title = "Welcome to KD";
 	/* for pagination */
-	$scope.filteredPosts = [], $scope.currentPage = 0, $scope.numPerPage = 2, $scope.maxSize = 5;
+	$scope.filteredPosts = [], $scope.currentPage = 0, $scope.numPerPage = 4, $scope.maxSize = 5;
 	mainService.postList()
 		.success(function(data) {
 
@@ -30,6 +30,11 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 				$scope.end = begin + $scope.numPerPage;
 				$scope.filteredPosts = $scope.items.slice(begin);
 			});
+
+			/* format time createdOn */
+			$scope.formatDate=function(date){
+				return moment(date).format('YYYY-MM-DD , hh:mm a');
+			};
 
 		})
 		.error(function(err) {
