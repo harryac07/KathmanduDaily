@@ -1,5 +1,5 @@
   angular
-  	.module('KD',['ngSanitize','angularMoment'])
+  	.module('KD')
   	.controller('navCtrl', navCtrl);
 
   function navCtrl($scope, $location, $interval, $window) {

@@ -1,4 +1,6 @@
-angular.module('KD', ['ngRoute']); // routes for controller
+angular
+	.module('KD', ['ngRoute', 'ngSanitize','angularMoment'])
+	.config(['$routeProvider', config]); // routes for controller
 
 function config($routeProvider) {
 	$routeProvider
@@ -15,7 +17,3 @@ function config($routeProvider) {
 			redirectTo: '/'
 		})
 }
-
-angular
-	.module('KD')
-	.config(['$routeProvider', config]);
