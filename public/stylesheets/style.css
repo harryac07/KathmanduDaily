@@ -47,6 +47,10 @@ img{
 		display: none;
 		visibility: hidden;
 	}
+	form{
+		margin-left: 10px;
+		margin-right: 10px;
+	}
 
 }
 footer{

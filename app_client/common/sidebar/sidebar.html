@@ -1,0 +1,48 @@
+            <div class="col-md-3 col-sm-3 col-xs-12">
+
+                <!-- Side Widget Well -->
+                <div class="well" >
+                    <h4><strong>Popular Posts</strong></h4>
+                    <div class="well" style="margin:5px;padding:5px;" ng-repeat="post in array">
+                        <a href="/#/post/{{post._id}}">
+                            <img  class="thumbnail" src="{{post.image}}" style="height:60px;width:60px;float:right;right:0">
+                            <h5 style="color:black">{{post.title}}</h5>
+                            <small><p ng-init="postContent=trimContent(post.content)">{{postContent}}</p></small>
+                        </a>
+                    </div>                  
+                </div>
+                <!--Share and Subscribe-->
+                <div class="well" style="height:auto">
+                    
+                    <a href=""class="btn btn-primary"><i class="fa fa-facebook" style="padding-right:7px;font-size:20px"></i>Share in Facebook</a> 
+                    <div style="padding-top:10px" class="fb-like" data-href="https://www.facebook.com/officialroutineofnepalbanda/" data-width="30px" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                    <hr>
+                    <div class="fb-follow" data-href="https://www.facebook.com/hurriee" data-width="20px" data-layout="standard" data-size="large" data-show-faces="true">
+                    </div>
+
+                </div>
+
+                <!--Moving your apartment -->
+                <div class="well" style="height:auto">
+                    
+                    <h4><strong>Searching for Apartment?</strong></h4>
+                    <a href="https://movektm.herokuapp.com" target="blank" class="btn btn-primary">
+                        <i class="fa fa-home" style="padding-right:8px;font-size:20px">
+                            
+                        </i>
+                        Find Apartments
+                    </a>
+                    <hr style="border-top:1px solid gray">
+                    <!--Find Gadgets -->
+                    
+                    <h4><strong>Phones & Computers</strong></h4>
+                    <a href="https://profinder1.herokuapp.com" target="blank"class="btn btn-primary">
+                        <i class="fa fa-laptop" style="padding-right:8px;font-size:20px">
+                            
+                        </i>
+                        Gadgets Nearby
+                    </a>
+
+                </div>
+
+            </div>
