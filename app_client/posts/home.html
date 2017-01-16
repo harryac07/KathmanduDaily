@@ -1,7 +1,4 @@
 
-
-        
-
             <div class="col-md-3 col-xs-12 col-sm-3">
                                 <!-- Blog Search Well -->
                 <div class="well">
@@ -53,7 +50,7 @@
                 </div>
             	<!-- First Blog Post -->
                 <div id="posts">
-                	<div ng-init="date=formatDate(post.createdOn)" ng-repeat="post in filteredPosts|limitTo:numPerPage">
+                	<div ng-init="date=formatDate(post.createdOn)" ng-repeat="post in filteredPosts">
     	                <h2>
     	                    <a href="/#/post/{{post._id}}">{{post.title}}</a>
     	                </h2>
@@ -70,7 +67,7 @@
     	                <hr>
                 	</div>
                 </div>
-                <div class="row" id="pager">
+<!--                 <div class="row" id="pager">
                     <div class="col-sm-4 col-xs-4">
                         <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
                             First
@@ -90,7 +87,8 @@
                             Last
                         </button>
                     </div>
-                </div>
+                </div> -->
+                <pagination id="pagination"  ng-model="currentPage" total-items="items.length" items-per-page="numPerPage" max-size="maxSize"  boundary-links="true"></pagination>
 
             </div>
             

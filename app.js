@@ -5,8 +5,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var passport = require('passport'); //Passport should be required before the database models
 require('./app_api/models/db'); // requiring db file
+require('./app_api/config/passport'); // configuration required after the database models
 
 var index = require('./app_server/routes/index');
 // var users = require('./app_server/routes/users');

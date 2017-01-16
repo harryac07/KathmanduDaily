@@ -20,7 +20,7 @@ var userSchema = new mongoose.Schema({
 	},
 	subscription:{
 		type:Boolean,
-		default:true
+		default:false
 	},
 	hash: String,
 	salt: String
@@ -44,7 +44,6 @@ userSchema.methods.generateJwt = function() {
 		email: this.email,
 		name: this.name,
 		admin: this.admin,
-		subscription:this.subscription,
 		exp: parseInt(expiry.getTime() / 1000)
 	}, process.env.JWT_SECRET);
 };

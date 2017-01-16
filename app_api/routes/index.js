@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
 var ctrlposts = require('../controllers/posts');
 var ctrlUsers = require('../controllers/users');
 var ctrlComment=require('../controllers/comments');
+var ctrlAuth=require('../controllers/authentication');
 
 
 router.post('/createpost/:userid',ctrlposts.postCreate);
@@ -25,7 +25,12 @@ router.delete('/user/:userid',ctrlUsers.deleteUserOne);
 router.post('/post/:postid/comment',ctrlComment.postComment);
 router.get('/post/:postid/comment/:commentid',ctrlComment.getComment);
 
+/* authentication */
+router.post('/register', ctrlAuth.register);
+router.post('/login', ctrlAuth.login);
 
+//Subscribe 
+router.post('/subscribe',ctrlAuth.subscribe);
 
 
 module.exports = router;

@@ -53,11 +53,11 @@ module.exports.listPosts = function(req, res) {
 						}
 					}
 					sendJSONresponse(res, 200, results);
-					console.log(results);
+					
 
 				} else {
 					sendJSONresponse(res, 200, post);
-					console.log(post);
+					
 				}
 
 			}
@@ -89,7 +89,7 @@ module.exports.readPostOne = function(req, res) {
 				return;
 			} else {
 				sendJSONresponse(res, 200, post);
-				console.log(post);
+				
 			}
 		});
 };

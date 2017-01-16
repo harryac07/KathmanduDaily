@@ -31,7 +31,7 @@
                     <div id="comments">
                         <div class="well" style="background:white;padding-top:5px;padding-bottom:5px;margin:5px" ng-repeat="comment in post.comment">
                             <h4 style="display:inline;color:red">{{comment.name}}</h4>
-                            <p style="float:right;display:inline">{{formatDate}}</p>
+                            <p id="comment-date"style="float:right;display:inline">{{formatDate}}</p>
                             <p>{{comment.comment}}</p>
                         </div>
                     </div>
@@ -57,7 +57,6 @@
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
-
 
             </div>
 

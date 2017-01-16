@@ -16,6 +16,24 @@ $(document).ready(function() {
 		}
 	});
 
+	/*Back-top-arrow set up */
+	$(document).scroll(function() {
+		if ($(window).scrollTop() > 300) {
+			$("#backtopButton-link").fadeIn(300);
+		} else {
+			$("#backtopButton-link").fadeOut(300);
+		}
+
+	});
+	$("#backtopButton-link").click(function(e) { // scroll to the top while clicked endlink Home 
+		e.preventDefault();
+		$("html, body").animate({ 
+			scrollTop: 0
+		}, 800, 'easeInQuart'); // animating using scrollTop plugin while clicking button. It goes to top of the id div
+
+		return false;
+	});
+
 	// /*moment js*/
 	// var now = moment();
 

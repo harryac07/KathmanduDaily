@@ -7,7 +7,7 @@ angular
 function homeCtrl($scope, $location, mainService) { // service as parameter
 	$scope.title = "Welcome to KD";
 	/* for pagination */
-	$scope.filteredPosts = [], $scope.currentPage = 0, $scope.numPerPage = 4, $scope.maxSize = 5;
+	$scope.filteredPosts = [], $scope.currentPage = 1, $scope.numPerPage = 4, $scope.maxSize = 5;
 	mainService.postList()
 		.success(function(data) {
 
@@ -26,13 +26,13 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 			};
 			/* watch the change in current page number */
 			$scope.$watch('currentPage', function() {
-				var begin = (($scope.currentPage) * $scope.numPerPage);
-				$scope.end = begin + $scope.numPerPage;
-				$scope.filteredPosts = $scope.items.slice(begin);
+				var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+				var end = begin + $scope.numPerPage;
+				$scope.filteredPosts = $scope.items.slice(begin, end);
 			});
 
 			/* format time createdOn */
-			$scope.formatDate=function(date){
+			$scope.formatDate = function(date) {
 				return moment(date).format('YYYY-MM-DD , hh:mm a');
 			};
 
@@ -62,15 +62,16 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 								}
 							};
 							$scope.makeItems();
+
 							/* Return total number of pages */
 							$scope.numberOfPages = function() {
 								return Math.ceil($scope.items.length / $scope.numPerPage);
 							};
 							/* watch the change in current page number */
 							$scope.$watch('currentPage', function() {
-								var begin = (($scope.currentPage) * $scope.numPerPage);
-								$scope.end = begin + $scope.numPerPage;
-								$scope.filteredPosts = $scope.items.slice(begin);
+								var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+								var end = begin + $scope.numPerPage;
+								$scope.filteredPosts = $scope.items.slice(begin, end);
 							});
 
 							/* simple jQuery handler for page */
@@ -114,10 +115,19 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 		};
 
 		/* load page from top on next page click */
-		$('#pager button').on('click', function() {
+		$('#pagination').on('click', function() {
 			$(window).scrollTop(0);
 		});
 
+		/* pagination for mobile device */
+		$(window).on('load resize', function() {
+			if($(window).width()<600){ // for mobile device make button small
+				$("#pagination").addClass('pagination-sm');
+			}else{
+				$("#pagination").removeClass('pagination-sm');
+			}
+			
+		});
 
 
 	});
