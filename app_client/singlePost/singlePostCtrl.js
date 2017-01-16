@@ -21,6 +21,13 @@ function singlePostCtrl($scope, $rootScope, $routeParams, $location, $window, ma
 	mainService.postById($routeParams.postid)
 		.success(function(data) {
 			$scope.post = data;
+
+			$scope.author=""; // author name for post.
+			if(data.author[0].facebook){
+				$scope.author=data.author[0].facebook.name;
+			}else{
+				$scope.author=data.author[0].local.name;
+			}
 			$scope.content = data.content.replace(/\r?\n/g, '<br />');
 
 			/* format time createdOn */

@@ -28,5 +28,8 @@ function loginCtrl($scope, $location, $window, auth) { // service as parameter
 				})
 		}
 	};
+	$scope.facebookLogin = function() {
+		return auth.facebookLogin();
+	};
 
 }

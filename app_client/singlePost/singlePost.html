@@ -11,11 +11,11 @@
                             <a href="/#/post/{{post._id}}">{{post.title}}</a>
                         </h2>
                         <p class="lead">
-                            by <a href="">{{post.author[0].name}}</a>
+                            by <a href="/#/author/{{post.author[0]._id}}">{{author}}</a>
                         </p>
                         <p><span class="glyphicon glyphicon-time"></span> Posted on {{formatDate}}</p>
                         <hr>
-                        <img class="img-responsive" src="{{post.image}}" alt="">
+                        <img class="img img-responsive" src="{{post.image}}" style="" alt="">
                          <a  class="btn btn-primary" style="margin-top:10px" href="https://www.facebook.com/sharer/sharer.php?u=https://profinder1.herokuapp.com/" target="_blank">
                             Share on Facebook
                         </a>
@@ -26,7 +26,9 @@
                     </div>
                 </div>
                 <div class="well">
-                    <h3 class="text-center">** Views and Discussions **</h3>
+                    <center><div class="text-center" style="background-color:#000;color:#fff;padding:10px;font-size:25px;display: inline-block;border:3px solid gray">Views and Discussions</div></center>
+                    <h3 ng-show="post.comment.length>0">{{post.comment.length}} Comments</h3>
+                    <br>
                     <!--coments come here -->
                     <div id="comments">
                         <div class="well" style="background:white;padding-top:5px;padding-bottom:5px;margin:5px" ng-repeat="comment in post.comment">

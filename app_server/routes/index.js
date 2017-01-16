@@ -15,7 +15,7 @@ var product = mongoose.model('Post');
 /* GET home page. */
 router.get('/',ctrlHomepage.homepage);
 
-router.get('/post',ctrlHomepage.postCreate);
-router.post('/post',multipartMiddleware,ctrlHomepage.post); // actual post
+router.get('/post/:userid',ctrlHomepage.postCreate);
+router.post('/post/:userid',multipartMiddleware,ctrlHomepage.post); // actual post
 
 module.exports = router;

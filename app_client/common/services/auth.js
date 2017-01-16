@@ -27,26 +27,32 @@ function auth($http, $window, $location) {
 			var token = getToken();
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
 			return {
+				_id:payload._id,
 				email: payload.email,
 				name: payload.name,
 				admin: payload.admin
 			};
 		}
 	};
-	register = function(user) {
+	var register = function(user) {
 		return $http.post('/api/register', user).success(function(data) {
 			// saveToken(data.token);
 		});
 	};
 
-	login = function(user) {
+	var login = function(user) {
 		return $http.post('/api/login', user).success(function(data) {
 
 			saveToken(data.token);
 		});
 	};
 
-	logout = function() {
+	var facebookLogin = function(token) {// save the token when logged in with facebook
+		saveToken(token);
+
+	};
+
+	var logout = function() {
 		$window.localStorage.removeItem('user-token');
 	};
 
@@ -57,6 +63,7 @@ function auth($http, $window, $location) {
 		isLoggedIn: isLoggedIn,
 		register: register,
 		login: login,
+		facebookLogin: facebookLogin,
 		logout: logout
 	};
 

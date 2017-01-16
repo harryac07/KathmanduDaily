@@ -1,5 +1,8 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+// load the auth variables
+var configAuth = require('./auth');
 
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
@@ -10,16 +13,6 @@ var User = mongoose.model('User');
 // passport needs ability to serialize and unserialize users out of session
 
 // used to serialize the user for the session
-passport.serializeUser(function(user, done) {
-	done(null, user.id);
-});
-
-// used to deserialize the user
-passport.deserializeUser(function(_id, done) {
-	User.findById(_id, function(err, user) {
-		done(err, user);
-	});
-});
 
 /* for local passport */
 passport.use(new LocalStrategy({
@@ -27,7 +20,7 @@ passport.use(new LocalStrategy({
 	},
 	function(username, password, done) {
 		User.findOne({
-			email: username
+			'local.email': username
 		}, function(err, user) {
 			if (err) {
 				return done(err);
@@ -47,3 +40,50 @@ passport.use(new LocalStrategy({
 		});
 	}
 ));
+
+/* facebook auth */
+passport.use(new FacebookStrategy({
+
+		// pull in our app id and secret from our auth.js file
+		clientID: configAuth.facebookAuth.clientID,
+		clientSecret: configAuth.facebookAuth.clientSecret,
+		callbackURL: configAuth.facebookAuth.callbackURL,
+		passReqToCallback: true,
+		profileFields: ['id', 'name', 'emails', 'photos']
+
+	},
+	// facebook will send back the token and profile
+	function(req, token, refreshToken, profile, done) {
+
+		User.findOne({
+			'facebook.email': profile.emails[0].value
+		}, function(err, user) {
+			if (err) {
+				return done(err);
+
+			}
+
+			if (user) { // if user found, return it
+				return done(null, user);
+			} else {
+				// if there is no user, create them
+				var newUser = new User();
+				newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+				newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
+				newUser.facebook.photo = profile.photos[0].value;
+				if (profile.emails[0].value = "harryac07@gmail.com") {
+					newUser.facebook.admin = true;
+				}
+
+				newUser.save(function(err) {
+					if (err) {
+						return done(err);
+					}
+
+					return done(null, newUser);
+				});
+			}
+		});
+
+
+	}));

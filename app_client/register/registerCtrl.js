@@ -3,7 +3,7 @@ angular
 	.controller('registerCtrl', registerCtrl);
 
 
-function registerCtrl($scope, $routeParams, $location, auth) { // service as parameter(auth-authentication)
+function registerCtrl($scope, $routeParams, $location,$window, auth) { // service as parameter(auth-authentication)
 
 	$scope.credentials = {
 		name: "",
@@ -21,7 +21,10 @@ function registerCtrl($scope, $routeParams, $location, auth) { // service as par
 			auth
 				.register($scope.credentials)
 				.error(function(err) {
-					$scope.formError = "User already exists!";
+					$scope.formError = err;
+				})
+				.then(function() {
+					$window.location.href="/#/login";
 				});
 		}
 	};

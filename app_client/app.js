@@ -13,6 +13,10 @@ function config($routeProvider) {
 			templateUrl: 'singlePost/singlePost.html',
 			controller: 'singlePostCtrl'
 		})
+		.when('/author/:authorid', {
+			templateUrl: 'author/author.html',
+			controller: 'authorCtrl'
+		})
 		.when('/register', {
 			templateUrl: 'register/register.html',
 			controller: 'registerCtrl'
@@ -20,6 +24,10 @@ function config($routeProvider) {
 		.when('/login', {
 			templateUrl: 'login/login.html',
 			controller: 'loginCtrl'
+		})
+		.when('/facebook/:token', {
+			templateUrl: 'social/facebook.html',
+			controller: 'facebookCtrl'
 		})
 		.otherwise({
 			redirectTo: '/'

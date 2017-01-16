@@ -6,7 +6,7 @@
     return {
       restrict: 'EA',
       templateUrl: '/common/sidebar/sidebar.html',
-      controller: 'mainCtrl'
+      controller: 'sidebarCtrl'
     };
   }
 

@@ -1,0 +1,63 @@
+
+<!-- Author profile page-->
+<div class="col-md-9 col-sm-9 col-xs-12" >
+	<div class="row" style="">
+		<div class="col-sm-4">
+			<div class="well">
+				<img src="http://budhubz.com/wp-content/themes/budhubs/images/noavatar.png" class="img img-responsive" style="height:250px;width:100%">
+				<h3> {{author.name}}</h3>
+				<h4>Web Developer</h4>
+				<br>
+				<p>Live in Helsinki,Finalnd</p>
+				<br>
+				<hr>
+				<a class="btn btn-primary" href="/#/">Go Home</a>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			<h2>More Details:  </h2>
+			<hr>
+
+			<div class="well" id="about">
+				<i ng-show="startEdit" id="edit-about" style="float:right;font-size:25px;display:inline;color:blue" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+				<p ng-hide="editing" ng-model="hello" id="about-text" ng-bind-html="authorDetail">
+
+				</p>
+                <form  ng-show="editing" ng-submit="updateDetail()" id="about-form">
+                    <div class="form-group">
+                    	<label for="about">Edit Details</label>
+                    	<textarea class="form-control" ng-model="detail.about" style="resize:vertical"></textarea>
+                    </div>
+                    <button type="submit" ng-show="editing" id="edit-about-save" style="display:inline" class="btn btn-success">save</button>	
+                </form>
+				<br><br>
+				<h3>Connect with {{author.name}}</h3>
+				<br>
+				<div style="display:inline-block" id="social-buttons">
+					<a href="" class="btn btn-primary"><i class="fa fa-facebook" style="font-size:20px;"></i> Facebook</a>
+					<a href="" class="btn btn-danger"><i class="fa fa-google-plus" style="font-size:20px;"></i> Google</a>
+					<a href="" class="btn btn-info"><i class="fa fa-twitter" style="font-size:20px;"></i> Twitter</a>
+					<a href="" class="btn btn-primary"><i class="fa fa-linkedin" style="font-size:20px;"></i> Linkedin</a>
+				</div>
+			</div>
+			<hr>
+			<div class="jumbotron" id="posts-div">
+				<h2>Posts and Activities : </h2>
+				<hr>
+                <div  class="well" style="margin:5px;padding:5px;" ng-repeat="post in posts| limitTo: count">
+                    <a href="/#/post/{{post._id}}">
+                        <img  class="thumbnail" src="{{post.image}}" style="height:60px;width:60px;float:right;right:0">
+                        <h3 style="color:#000;">{{post.title}}</h3>
+                        <h4 style="color:#808080;" ng-init="postContent=trimContent(post.content)">{{postContent}}</h4>
+                    </a>
+                </div> 
+                <a id="moreposts" ng-init="count=3" ng-click="count = count+5" ng-show="count<=posts.length"  type="button">More Posts...</a>
+                <a ng-click="goToTop()"data-target=".jumbotron" ng-show="count>=posts.length"   type="button">Go to Top</a>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+ 

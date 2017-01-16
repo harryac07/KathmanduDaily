@@ -42,7 +42,7 @@ module.exports.post = function(req, res) {
 			image: result.url,
 			content: req.body.content
 		};
-		path = '/api/createpost/585fad2354451f145c6b6e21';
+		path = '/api/createpost/'+req.params.userid;
 		//path = '/api/createpost/:userid';
 		console.log('path : ' + path);
 		requestOptions = {
@@ -55,6 +55,8 @@ module.exports.post = function(req, res) {
 				res.redirect('/');
 				return;
 			} else {
+				var token = req.get('Authorization').split("Bearer ")[1];
+				console.log(token);
 				res.send(err);
 			}
 		});

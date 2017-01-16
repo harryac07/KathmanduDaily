@@ -14,14 +14,30 @@ function mainService($http) {
 	var postById = function(postid) {
 		return $http.get('/api/post/' + postid);
 	};
-	var postComment = function(postid,data) {
+	var postComment = function(postid, data) {
 		return $http.post('/api/post/' + postid + '/comment', data);
+	};
+	var subscribe = function(email) {
+		return $http.post('/api/subscribe', email);
+	};
+	var postByAuthor = function(authorId) {
+		return $http.get('/api/post/author/' + authorId);
+	};
+	var userById = function(userid) {
+		return $http.get('/api/user/' + userid);
+	};
+	var userUpdateAbout = function(userid,data) {
+		return $http.post('/api/user/updateabout/'+userid, data);
 	};
 
 	return {
 		postList: postList,
 		postById: postById,
 		postSearch: postSearch,
-		postComment: postComment
+		postComment: postComment,
+		subscribe: subscribe,
+		postByAuthor: postByAuthor,
+		userById: userById,
+		userUpdateAbout: userUpdateAbout
 	};
 }

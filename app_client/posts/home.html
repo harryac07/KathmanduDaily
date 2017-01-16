@@ -50,12 +50,12 @@
                 </div>
             	<!-- First Blog Post -->
                 <div id="posts">
-                	<div ng-init="date=formatDate(post.createdOn)" ng-repeat="post in filteredPosts">
+                	<div ng-init="date=formatDate(post.createdOn);authorname=authors(post); authorid=authorId(post)" ng-repeat="post in filteredPosts">
     	                <h2>
     	                    <a href="/#/post/{{post._id}}">{{post.title}}</a>
     	                </h2>
     	                <p class="lead">
-    	                    by <a href="">{{post.author[0].name}}</a>
+    	                    by <a href="/#/author/{{authorid}}">{{authorname.name}}</a>
     	                </p>
     	                <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
     	                <hr>

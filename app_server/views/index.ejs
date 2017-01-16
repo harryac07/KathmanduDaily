@@ -41,87 +41,25 @@
       <script src="/common/navigation/navigationCtrl.js"></script>
       <script src="/common/navigation/nav.directive.js"></script>
       <script src="/common/sidebar/sidebar.directive.js"></script>
+      <script src="/common/sidebar/sidebarCtrl.js"></script>
+
 
       <script src="/posts/homeCtrl.js"></script><!--include home ctrl js file-->
       <script src="/singlePost/singlePostCtrl.js"></script><!--include singlePostctrl js file-->
       <script src="/register/registerCtrl.js"></script>
+      <script src="/author/authorCtrl.js"></script>
       <script src="/login/loginCtrl.js"></script>
+      <script src="/social/facebookCtrl.js"></script>
 
       <script src="/common/services/dataService.js"></script>
       <script src="/common/services/auth.js"></script>
+      
+        <!--socket io-->
+        <script src="/io.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
 
       <script>
-        angular
-        .module('KD')
-        .controller('mainCtrl', mainCtrl);
 
-
-
-        function mainCtrl($scope, $location,$interval,$timeout,mainService) { // service as parameter
-
-                /* load subscription form */
-                $timeout(function(){
-                    $('#myModal').modal('show'); 
-                }, 60000);   //60 sec    
-
-                /* handle popular comment on basis of comment counts */ 
-                $scope.comments=[]; // length of comments in desc order.
-                
-                mainService.postList()
-                .success(function(data){
-                    $scope.array=[]; // array consisiting of popular posts data.
-
-                    for(var i=0;i<data.length;i++){
-                        $scope.comments.push(data[i].comment.length);
-                    }
-
-
-                    $scope.comments.sort(function(a, b){ // sort array by maximum val
-                        return b-a;
-                    });
-                    $scope.comments= $scope.comments.slice(0,4);
-                    // console.log('comments:'+$scope.comments);
-
-                    for(var i=0;i<data.length;i++){
-                        for(var j=0;j<$scope.comments.length;j++){
-                            if(data[i].comment.length===$scope.comments[j]){ // check if the two array matches
-                                $scope.array.push(data[i]);
-                            }
-                        }
-                    }
-                    /* remove the duplicates */
-                    $scope.array = $scope.array.filter( function( item, index, inputArray ) {
-                        return inputArray.indexOf(item) == index;
-                    });
-                    // sort by maximum number of comments 
-                    $scope.array.sort(function (a, b) {
-                      return b.comment.length - a.comment.length;
-                    });
-                    /* make the length of array to be 4 */
-                    $scope.array=$scope.array.slice(0,4);              
-
-                })
-                .error(function(err){
-                    console.log(err);
-                });
-
-                /* handling susbscript form */
-
-
-                /* Managing the word in post in popular post view */
-
-                $scope.trimContent = function(string) {
-
-                    for (var i = 0; i < string.length; i++) {
-                        if (string.length > 100) {
-                            string = string.substr(0, 50) + ' .........'; // Trim String and make upto 250 characters
-                        }
-                    }
-                    return string;
-                };
-                
-
-        } /* function ends */
       </script>
 
 </head>
@@ -150,6 +88,7 @@
 
             <div ng-view> <!--angular view area-->
             </div>
+
                 <!-- Blog Sidebar Widgets Column -->
             <sidebar></sidebar>
 
@@ -171,6 +110,7 @@
                         
                         <p>Contact Us</p>
                         <p>About Us</p>
+                        <button class="btn btn-default">Share your Post</button>
 
                     </div>
                     <div class="col-sm-4" class="" style=";padding-top:30px">
@@ -198,8 +138,7 @@
                             </div>
                         </div>
                     </div> 
-                    
-                     <a class="btn btn-default" style="" href="/post">Post create</a>  
+                 
                 </div>
 
                 <hr style="width:70%">
@@ -254,14 +193,16 @@
                 <div class="modal-body">
                   <h3 style="color:blue">Subscribe to our Newsletters</h3>
                   <p>Kathmandu Daily is a source of your entertainments.Subscribe to our mailing list and get updated about updates ,news and fantastic posts.</p>
-                    <form class="form-horizontal" style="padding:0 20px 0 20px">
+                    <form class="form-horizontal" style="padding:0 20px 0 20px" ng-submit="onSubmit()">
+                        <div class="alert alert-danger" ng-show="formError">{{formError}}</div>
                       <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Type your email....">
+                        <input type="email" name="email" ng-model="credential.email" class="form-control" placeholder="Type your email....">
+                        <br>
+                        <button type="submit" class="btn btn-success">Subscribe</button>
                       </div>
                     </form>
-                    <br>
-                    <button type="submit" class="btn btn-success">Subscribe</button>
+                    
 
                 </div>
 

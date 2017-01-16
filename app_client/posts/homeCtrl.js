@@ -4,10 +4,33 @@ angular
 
 
 
-function homeCtrl($scope, $location, mainService) { // service as parameter
+function homeCtrl($scope, $location, $interval, $timeout, mainService) { // service as parameter
 	$scope.title = "Welcome to KD";
 	/* for pagination */
 	$scope.filteredPosts = [], $scope.currentPage = 1, $scope.numPerPage = 4, $scope.maxSize = 5;
+
+	/* author name for each page */
+	$scope.author = {}; // author details for post.
+	$scope.authors = function(data) {
+
+		if (data.author[0]) {
+			if (data.author[0].facebook) {
+				$scope.author = data.author[0].facebook;
+				return $scope.author;
+			} else {
+				$scope.author = data.author[0].local;
+				return $scope.author;
+			}
+		}
+
+
+	};
+	/* return author id for getting author profile page */
+	$scope.authorId=function(data){
+		if (data.author[0]) {
+			return data.author[0]._id;
+		}
+	};
 	mainService.postList()
 		.success(function(data) {
 
@@ -51,6 +74,7 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 				/* call api to search the page */
 				mainService.postSearch(query)
 					.success(function(data) {
+
 
 						/* if data is avilable */
 						if (data.length > 0) {
@@ -121,12 +145,12 @@ function homeCtrl($scope, $location, mainService) { // service as parameter
 
 		/* pagination for mobile device */
 		$(window).on('load resize', function() {
-			if($(window).width()<600){ // for mobile device make button small
+			if ($(window).width() < 600) { // for mobile device make button small
 				$("#pagination").addClass('pagination-sm');
-			}else{
+			} else {
 				$("#pagination").removeClass('pagination-sm');
 			}
-			
+
 		});
 
 

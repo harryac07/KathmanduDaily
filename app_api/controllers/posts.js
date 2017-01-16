@@ -30,7 +30,7 @@ module.exports.postCreate = function(req, res) {
 module.exports.listPosts = function(req, res) {
 
 	Post.find()
-		.populate('author', 'name email')
+		.populate('author', '_id local.name local.email facebook.name facebook.email')
 		.exec(function(err, post) {
 			if (!post) {
 				sendJSONresponse(res, 404, {
@@ -48,16 +48,16 @@ module.exports.listPosts = function(req, res) {
 					var toSearch = query.toLowerCase();
 
 					for (var i = 0; i < post.length; i++) {
-						if(post[i].title.toLowerCase().includes(toSearch) || post[i].content.toLowerCase().includes(toSearch) ){
+						if (post[i].title.toLowerCase().includes(toSearch) || post[i].content.toLowerCase().includes(toSearch)) {
 							results.push(post[i]);
 						}
 					}
 					sendJSONresponse(res, 200, results);
-					
+
 
 				} else {
 					sendJSONresponse(res, 200, post);
-					
+
 				}
 
 			}
@@ -77,7 +77,7 @@ module.exports.readPostOne = function(req, res) {
 
 	Post.
 	findById(postId)
-		.populate('author', 'name email')
+		.populate('author', '_id local.name local.email facebook.name facebook.email')
 		.exec(function(err, post) {
 			if (!post) {
 				sendJSONresponse(res, 404, {
@@ -89,7 +89,33 @@ module.exports.readPostOne = function(req, res) {
 				return;
 			} else {
 				sendJSONresponse(res, 200, post);
-				
+
+			}
+		});
+};
+module.exports.postByAuthor = function(req, res) {
+	if (!req.params.authorid) {
+		sendJSONresponse(res, 404, {
+			"message": "author id is required"
+		});
+		return;
+	}
+
+	Post.find({
+			"author": req.params.authorid
+		})
+		.populate('author', '_id local.name local.email facebook.name facebook.email')
+		.exec(function(err, post) {
+			if(err){
+				sendJSONresponse(res,400,err);
+				return;
+			}else if(!post){
+				sendJSONresponse(res,404,{
+					"message":"Post not found by this author"
+				});
+				return;
+			}else{
+				sendJSONresponse(res,200,post);
 			}
 		});
 };
