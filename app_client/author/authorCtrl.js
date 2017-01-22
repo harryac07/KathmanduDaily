@@ -7,7 +7,7 @@ function authorCtrl($scope, $routeParams, $location, $anchorScroll, $window, aut
 	$window.scrollTo(0, 0); // for page load from top only 
 
 	/* Socket starts here */
-	var socket = io('http://localhost:3000');
+	var socket = io('http://kathmandudaily.herokuapp.com');
 
 	/* When new client connects*/
 	socket.on('welcome', function(data) {
