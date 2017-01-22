@@ -80,9 +80,8 @@ function authorCtrl($scope, $routeParams, $location, $anchorScroll, $window, aut
 
 			/*handling for smaller devices */
 			$(document).ready(function() {
-
 				/* make content editavble if user is logged in */
-				if ($scope.isLoggedIn && $scope.currentUser.name === $scope.author.name) {
+				if ($scope.isLoggedIn && $scope.currentUser.name.toLowerCase() === $scope.author.name.toLowerCase()) {
 
 					$scope.startEdit = true;
 					/* update about(details) of user */
@@ -113,16 +112,23 @@ function authorCtrl($scope, $routeParams, $location, $anchorScroll, $window, aut
 							});
 					};
 
-
-					$('#edit-about').click(function() {
+					//when edit button or save is clicked
+					$('.edit-about').click(function(event) {
+						event.preventDefault();
 						$('#about p').attr('contenteditable', 'true');
 						$scope.editing = true;
 					});
-					$('#edit-about-save').click(function() {
+					$('#edit-about-save').click(function(even) {
 						$scope.editing = false;
 						$('#about p').attr('contenteditable', 'false');
-
 					});
+					//when reset button is clicked
+					$('#reset').click(function(event) {
+						event.preventDefault();
+						$('#about p').attr('contenteditable', 'false');
+						$scope.editing = false;
+					});
+
 				} else {
 					$scope.startEdit = false;
 				}

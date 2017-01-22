@@ -19,7 +19,7 @@
 			<hr>
 
 			<div class="well" id="about">
-				<i ng-show="startEdit" id="edit-about" style="float:right;font-size:25px;display:inline;color:blue" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+				<i ng-show="startEdit" id="edit-about" style="float:right;font-size:25px;display:inline;color:blue" class="fa fa-pencil-square-o edit-about" aria-hidden="true"></i>
 				<p ng-hide="editing" ng-model="hello" id="about-text" ng-bind-html="authorDetail">
 
 				</p>
@@ -28,7 +28,8 @@
                     	<label for="about">Edit Details</label>
                     	<textarea class="form-control" ng-model="detail.about" style="resize:vertical"></textarea>
                     </div>
-                    <button type="submit" ng-show="editing" id="edit-about-save" style="display:inline" class="btn btn-success">save</button>	
+                    <button type="submit" ng-show="editing" id="edit-about-save" style="display:inline-block" class="btn btn-success">save</button>	
+                    <button type="reset" ng-show="editing" id="reset" style="display:inline-block" class="btn btn-danger">Reset</button>
                 </form>
 				<br><br>
 				<h3>Connect with {{author.name}}</h3>
@@ -48,7 +49,7 @@
                     <a href="/#/post/{{post._id}}">
                         <img  class="thumbnail" src="{{post.image}}" style="height:60px;width:60px;float:right;right:0">
                         <h3 style="color:#000;">{{post.title}}</h3>
-                        <h4 style="color:#808080;" ng-init="postContent=trimContent(post.content)">{{postContent}}</h4>
+                        <p style="color:#808080;font-size:16px;" ng-init="postContent=trimContent(post.content)">{{postContent}}</p>
                     </a>
                 </div> 
                 <a id="moreposts" ng-init="count=3" ng-click="count = count+5" ng-show="count<=posts.length"  type="button">More Posts...</a>

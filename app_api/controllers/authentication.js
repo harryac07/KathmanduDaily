@@ -36,7 +36,7 @@ module.exports.register = function(req, res) {
 				var newUser = new User(); // create a new user instances
 				newUser.local.name = req.body.name;
 				newUser.local.email = req.body.email;
-				newUser.local.photo="http://budhubz.com/wp-content/themes/budhubs/images/noavatar.png";
+
 				if (req.body.email === 'harry_ac07@yahoo.com') {
 					newUser.local.admin = true;
 				}

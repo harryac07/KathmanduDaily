@@ -11,6 +11,12 @@ var sendJSONresponse = function(res, status, content) {
 };
 /* create a post */
 module.exports.postCreate = function(req, res) {
+	if(!req.params.userid){
+		sendJSONresponse(res,404,{
+			"message":"user id required"
+		});
+		return;
+	}
 	Post.create({
 		title: req.body.title,
 		image: req.body.image,

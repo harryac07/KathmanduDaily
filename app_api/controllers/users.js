@@ -126,7 +126,7 @@ module.exports.updateAbout = function(req, res) {
 				});
 				return;
 			}else{
-				console.log(req.body.about);
+				
 				if(user.local.name){
 					console.log('local true');
 					user.local.about=req.body.about;

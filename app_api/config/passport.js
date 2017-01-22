@@ -71,6 +71,7 @@ passport.use(new FacebookStrategy({
 				newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
 				newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
 				newUser.facebook.photo = profile.photos[0].value;
+				console.log(profile.photos[0].value);
 				if (profile.emails[0].value = "harryac07@gmail.com") {
 					newUser.facebook.admin = true;
 				}
