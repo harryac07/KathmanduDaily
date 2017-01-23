@@ -7,7 +7,7 @@ function authorCtrl($scope, $routeParams, $location, $anchorScroll, $window, aut
 	$window.scrollTo(0, 0); // for page load from top only 
 
 	/* Socket starts here */
-	var socket = io('http://kathmandudaily.herokuapp.com');
+	var socket = io('http://localhost:3000');
 
 	/* When new client connects*/
 	socket.on('welcome', function(data) {
@@ -62,20 +62,23 @@ function authorCtrl($scope, $routeParams, $location, $anchorScroll, $window, aut
 
 				if (data.facebook) { // check if account is facebook or local
 					$scope.author = data.facebook;
+					$scope.photo=$scope.author.photo;
 					if ($scope.author.about) {
 						$scope.authorDetail = $scope.author.about.replace(/\r?\n/g, '<br />');
+						
+
 					}
 
 				} else {
 					$scope.author = data.local;
 					if ($scope.author.about) {
 						$scope.authorDetail = $scope.author.about.replace(/\r?\n/g, '<br />');
+						$scope.photo="http://budhubz.com/wp-content/themes/budhubs/images/noavatar.png";
 					}
 
 				}
 
 			}
-
 
 
 			/*handling for smaller devices */
@@ -113,7 +116,7 @@ function authorCtrl($scope, $routeParams, $location, $anchorScroll, $window, aut
 					};
 
 					//when edit button or save is clicked
-					$('.edit-about').click(function(event) {
+					$('#edit-about').click(function(event) {
 						event.preventDefault();
 						$('#about p').attr('contenteditable', 'true');
 						$scope.editing = true;

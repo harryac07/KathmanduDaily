@@ -49,7 +49,7 @@ passport.use(new FacebookStrategy({
 		clientSecret: configAuth.facebookAuth.clientSecret,
 		callbackURL: configAuth.facebookAuth.callbackURL,
 		passReqToCallback: true,
-		profileFields: ['id', 'name', 'emails', 'photos']
+		profileFields: ['id', 'name', 'emails', 'picture.type(large)']
 
 	},
 	// facebook will send back the token and profile

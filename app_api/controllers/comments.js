@@ -80,6 +80,7 @@ module.exports.getComment = function(req, res) {
 							},
 							comment: comment
 						};
+						console.log(response);
 						sendJSONresponse(res, 200, response);
 					}
 

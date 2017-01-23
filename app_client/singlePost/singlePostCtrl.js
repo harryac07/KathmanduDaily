@@ -30,8 +30,10 @@ function singlePostCtrl($scope, $rootScope, $routeParams, $location, $window, ma
 			}
 			$scope.content = data.content.replace(/\r?\n/g, '<br />');
 
-			/* format time createdOn */
-			$scope.formatDate = moment(data.createdOn).format('YYYY-MM-DD , hh:mm a');
+			/* format time and return farmatted time*/
+			$scope.formatDate=function(date){
+				return moment.utc(date).local().format('YYYY-MM-DD , hh:mm a');
+			};
 		})
 		.error(function(err) {
 			console.log(err);

@@ -13,7 +13,7 @@
                         <p class="lead">
                             by <a href="/#/author/{{post.author[0]._id}}">{{author}}</a>
                         </p>
-                        <p><span class="glyphicon glyphicon-time"></span> Posted on {{formatDate}}</p>
+                        <p><span class="glyphicon glyphicon-time"></span> Posted on {{formatDate(post.createdOn)}}</p>
                         <hr>
                         <img class="img img-responsive" src="{{post.image}}" style="" alt="">
                          <a  class="btn btn-primary" style="margin-top:10px" href="https://www.facebook.com/sharer/sharer.php?u=https://profinder1.herokuapp.com/" target="_blank">
@@ -31,9 +31,9 @@
                     <br>
                     <!--coments come here -->
                     <div id="comments">
-                        <div class="well" style="background:white;padding-top:5px;padding-bottom:5px;margin:5px" ng-repeat="comment in post.comment">
+                        <div class="well" style="background:white;padding-top:5px;padding-bottom:5px;margin:5px" ng-init="commentCreatedDate=formatDate(comment.createdOn)" ng-repeat="comment in post.comment">
                             <h4 style="display:inline;color:red">{{comment.name}}</h4>
-                            <p id="comment-date"style="float:right;display:inline">{{formatDate}}</p>
+                            <p id="comment-date"style="float:right;display:inline">{{commentCreatedDate}}</p>
                             <p>{{comment.comment}}</p>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
             <div class="col-md-3 col-xs-12 col-sm-3">
                                 <!-- Blog Search Well -->
                 <div class="well">
-                    <h4>Search here</h4>
+                    <h4>Post Search</h4>
                     <div class="input-group">
                         <input type="text" class="form-control" id="search" style="border:1px solid gray">
                         <span class="input-group-btn">
@@ -67,27 +67,6 @@
     	                <hr>
                 	</div>
                 </div>
-<!--                 <div class="row" id="pager">
-                    <div class="col-sm-4 col-xs-4">
-                        <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
-                            First
-                        </button>
-                        <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-                            Previous
-                        </button>
-                    </div>
-                    <div class="col-sm-4 col-xs-4">
-                        <button class="btn btn-default"><strong>{{currentPage+1}}</strong> out of <strong>{{numberOfPages()}}</strong></button>
-                    </div>
-                    <div class="col-sm-4 col-xs-4">
-                        <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
-                            Next
-                        </button>
-                        <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
-                            Last
-                        </button>
-                    </div>
-                </div> -->
                 <pagination id="pagination"  ng-model="currentPage" total-items="items.length" items-per-page="numPerPage" max-size="maxSize"  boundary-links="true"></pagination>
 
             </div>

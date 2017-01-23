@@ -11,9 +11,9 @@ var sendJSONresponse = function(res, status, content) {
 };
 /* create a post */
 module.exports.postCreate = function(req, res) {
-	if(!req.params.userid){
-		sendJSONresponse(res,404,{
-			"message":"user id required"
+	if (!req.params.userid) {
+		sendJSONresponse(res, 404, {
+			"message": "user id required"
 		});
 		return;
 	}
@@ -112,16 +112,16 @@ module.exports.postByAuthor = function(req, res) {
 		})
 		.populate('author', '_id local.name local.email facebook.name facebook.email')
 		.exec(function(err, post) {
-			if(err){
-				sendJSONresponse(res,400,err);
+			if (err) {
+				sendJSONresponse(res, 400, err);
 				return;
-			}else if(!post){
-				sendJSONresponse(res,404,{
-					"message":"Post not found by this author"
+			} else if (!post) {
+				sendJSONresponse(res, 404, {
+					"message": "Post not found by this author"
 				});
 				return;
-			}else{
-				sendJSONresponse(res,200,post);
+			} else {
+				sendJSONresponse(res, 200, post);
 			}
 		});
 };
